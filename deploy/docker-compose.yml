@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  social-auto-upload:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        - https_proxy=http://192.168.50.56:7890
+        - http_proxy=http://192.168.50.56:7890
+        - all_proxy=socks5://192.168.50.56:7890
+    container_name: social-auto-upload
+    image: social-auto-upload
+    environment:
+      PUID: 1000
+      PGID: 1000
+      USER: $USER
+      HF_ENDPOINT: "https://hf-mirror.com"
+    tty: true
+    ports:
+    - "5409:5409"
+#    volumes:
+#      - "/data:/data"
+    #restart: always
+#    command: "uv run proxy_server.py 0.0.0.0"
+    networks:
+      social-auto-upload:
+        
+networks:
+  social-auto-upload:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.52.0.0/16
+          gateway: 172.52.0.1
