@@ -19,8 +19,8 @@ services:
     tty: true
     ports:
     - "5409:5409"
-#    volumes:
-#      - "/data:/data"
+    volumes:
+      - "../database.db:/app/database.db"
     #restart: always
 #    command: "uv run proxy_server.py 0.0.0.0"
     networks:
