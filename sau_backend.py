@@ -7,6 +7,8 @@ import uuid
 from pathlib import Path
 from queue import Queue
 from flask_cors import CORS
+
+from db.createTable import create_database
 from myUtils.auth import check_cookie
 from flask import Flask, request, jsonify, Response, render_template, send_from_directory
 from conf import BASE_DIR
@@ -667,4 +669,5 @@ def sse_stream(status_queue):
             time.sleep(0.1)
 
 if __name__ == '__main__':
+    create_database()
     app.run(host='0.0.0.0' ,port=5409)
